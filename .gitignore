@@ -2,3 +2,5 @@
 local_config.py
 my_discord_secrets.py
 *.png
+*.sh
+*.local_config

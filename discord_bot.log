@@ -1,0 +1,1039 @@
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-05-29 17:12:18] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-05-29 17:12:19] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 98916916af51d77616c97d38e53d582a).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 98916916af51d77616c97d38e53d582a).
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-05-29 17:14:12] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-05-29 17:14:13] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 87f78c7b20bf90890a30263b8ed6957b).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 87f78c7b20bf90890a30263b8ed6957b).
+Logged in as MentionAlertBOT#8803
+Target User IDs: [319226423623548928, 1377184132731502632]
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-05-29 17:14:30] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-05-29 17:14:31] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 22121b43760a26a8617e4c9d290ec40b).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 22121b43760a26a8617e4c9d290ec40b).
+[2025-05-29 17:18:10] [WARNING ] discord.gateway: Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 193, in <module>
+    bot.run(TOKEN)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 906, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 607, in run_forever
+    self._run_once()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 1922, in _run_once
+    handle._run()
+  File "/usr/lib/python3.11/asyncio/events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 169, in on_message
+    driver.print_image_from_bytes(image_bytes)
+  File "/home/bacon/MCP31PrinterBOT/printer_driver.py", line 315, in print_image_from_bytes
+    img.save("debug_bytes_initial.png")
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/PIL/Image.py", line 2597, in save
+    fp.close()
+
+WARNING:discord.gateway:Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 193, in <module>
+    bot.run(TOKEN)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 906, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 607, in run_forever
+    self._run_once()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 1922, in _run_once
+    handle._run()
+  File "/usr/lib/python3.11/asyncio/events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 169, in on_message
+    driver.print_image_from_bytes(image_bytes)
+  File "/home/bacon/MCP31PrinterBOT/printer_driver.py", line 315, in print_image_from_bytes
+    img.save("debug_bytes_initial.png")
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/PIL/Image.py", line 2597, in save
+    fp.close()
+
+Logged in as MentionAlertBOT#8803
+Target User IDs: [319226423623548928, 1377184132731502632]
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generating QR code for data: 'https://www.youtube.com/watch?v=PwrR9xvS8XA&ab_channel=%E3%81%AB%E3%81%98%E3%81%95%E3%82%93%E3%81%98'
+DEBUG: Description text: '【リバース缶詰】にじさんじのB'
+DEBUG: QR code image generated. Size: (228, 228)
+DEBUG: Description text image generated. Size: (576, 54)
+DEBUG: QR code pasted at (174, 0)
+DEBUG: Description text pasted at (0, 248)
+DEBUG: Combined image size: (576, 312)
+DEBUG: Generated QR code with text image saved to output_qr_small.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 1 empty lines for paper feed.
+1行の空白行を印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377561198949826631/main.png?ex=68396957&is=683817d7&hm=89fc77d9e3bfeb5d7e6b5b3b0c90763eb5b70b1757e366323671c0aabaeba3d4&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGBA, size: (240, 240)
+DEBUG: RGBA image alpha-composited with white background from bytes.
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 7200 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377561523513196675/IMG_1094.jpg?ex=683969a5&is=68381825&hm=7d5a32f15ef9b486dd7966d0691ea01edee077d2e38775a44363b21153994359&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (5712, 4284)
+DEBUG: Image resized to fit paper width from bytes: (576, 432)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31104 bytes.
+DEBUG: First 20 bytes of printer data: aea4924d252a924a48222aa44449048892040124
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+[2025-05-29 17:18:15] [ERROR   ] discord.client: Attempting a reconnect in 1.03s
+Traceback (most recent call last):
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 704, in connect
+    await self.ws.poll_event()
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/gateway.py", line 627, in poll_event
+    await self.received_message(msg.data)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/gateway.py", line 532, in received_message
+    await self.send_as_json(beat)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/gateway.py", line 663, in send_as_json
+    await self.send(utils._to_json(data))
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/gateway.py", line 659, in send
+    await self.socket.send_str(data)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/aiohttp/client_ws.py", line 245, in send_str
+    await self._writer.send_frame(
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/aiohttp/_websocket/writer.py", line 126, in send_frame
+    raise ClientConnectionResetError("Cannot write to closing transport")
+aiohttp.client_exceptions.ClientConnectionResetError: Cannot write to closing transport
+ERROR:discord.client:Attempting a reconnect in 1.03s
+Traceback (most recent call last):
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 704, in connect
+    await self.ws.poll_event()
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/gateway.py", line 627, in poll_event
+    await self.received_message(msg.data)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/gateway.py", line 532, in received_message
+    await self.send_as_json(beat)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/gateway.py", line 663, in send_as_json
+    await self.send(utils._to_json(data))
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/gateway.py", line 659, in send
+    await self.socket.send_str(data)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/aiohttp/client_ws.py", line 245, in send_str
+    await self._writer.send_frame(
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/aiohttp/_websocket/writer.py", line 126, in send_frame
+    raise ClientConnectionResetError("Cannot write to closing transport")
+aiohttp.client_exceptions.ClientConnectionResetError: Cannot write to closing transport
+[2025-05-29 17:18:24] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session 22121b43760a26a8617e4c9d290ec40b.
+INFO:discord.gateway:Shard ID None has successfully RESUMED session 22121b43760a26a8617e4c9d290ec40b.
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377561789621076019/IMG_3560.jpg?ex=683969e4&is=68381864&hm=2f4171b9961ef0abfb96630c7678f26ef6720cfdedb584d1e9b8d3e4cf54a08b&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (2342, 1791)
+DEBUG: Image resized to fit paper width from bytes: (576, 440)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31680 bytes.
+DEBUG: First 20 bytes of printer data: f7bdddddddb776edb6db6dddddddddddef777777
+バイト列から画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377561789621076019/IMG_3560.jpg?ex=683969e4&is=68381864&hm=2f4171b9961ef0abfb96630c7678f26ef6720cfdedb584d1e9b8d3e4cf54a08b&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (2342, 1791)
+DEBUG: Image resized to fit paper width from bytes: (576, 440)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31680 bytes.
+DEBUG: First 20 bytes of printer data: f7bdddddddb776edb6db6dddddddddddef777777
+バイト列から画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377561789621076019/IMG_3560.jpg?ex=683969e4&is=68381864&hm=2f4171b9961ef0abfb96630c7678f26ef6720cfdedb584d1e9b8d3e4cf54a08b&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (2342, 1791)
+DEBUG: Image resized to fit paper width from bytes: (576, 440)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31680 bytes.
+DEBUG: First 20 bytes of printer data: f7bdddddddb776edb6db6dddddddddddef777777
+バイト列から画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377561789621076019/IMG_3560.jpg?ex=683969e4&is=68381864&hm=2f4171b9961ef0abfb96630c7678f26ef6720cfdedb584d1e9b8d3e4cf54a08b&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (2342, 1791)
+DEBUG: Image resized to fit paper width from bytes: (576, 440)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31680 bytes.
+DEBUG: First 20 bytes of printer data: f7bdddddddb776edb6db6dddddddddddef777777
+バイト列から画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377561789621076019/IMG_3560.jpg?ex=683969e4&is=68381864&hm=2f4171b9961ef0abfb96630c7678f26ef6720cfdedb584d1e9b8d3e4cf54a08b&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (2342, 1791)
+DEBUG: Image resized to fit paper width from bytes: (576, 440)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31680 bytes.
+DEBUG: First 20 bytes of printer data: f7bdddddddb776edb6db6dddddddddddef777777
+バイト列から画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377561789621076019/IMG_3560.jpg?ex=683969e4&is=68381864&hm=2f4171b9961ef0abfb96630c7678f26ef6720cfdedb584d1e9b8d3e4cf54a08b&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (2342, 1791)
+DEBUG: Image resized to fit paper width from bytes: (576, 440)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31680 bytes.
+DEBUG: First 20 bytes of printer data: f7bdddddddb776edb6db6dddddddddddef777777
+バイト列から画像をラスターモードで印刷しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+[2025-05-29 17:20:06] [WARNING ] discord.gateway: Can't keep up, shard ID None websocket is 12.7s behind.
+WARNING:discord.gateway:Can't keep up, shard ID None websocket is 12.7s behind.
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-05-29 17:22:07] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-05-29 17:22:08] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 10c8380dd15964e1b06e80b3cb9ef6b1).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 10c8380dd15964e1b06e80b3cb9ef6b1).
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-05-29 17:22:18] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-05-29 17:22:20] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 74362f912777a7b96a4e6838141cc677).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 74362f912777a7b96a4e6838141cc677).
+Logged in as MentionAlertBOT#8803
+Target User IDs: [319226423623548928, 1377184132731502632]
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/773181736988573697/1377562985685454999/40ed7fc4c4ed261d4b93394bd53bf705.png?ex=68396b01&is=68381981&hm=c4229b73a34e902b7e2b72cddb483b84f768cda6c9a1e165b4207258d2b96bea&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (4288, 2848)
+DEBUG: Image resized to fit paper width from bytes: (576, 382)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 27504 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/773181736988573697/1377562986721579008/8616a87773a6e64477ebf587daa32915e3d2b873.png?ex=68396b01&is=68381981&hm=b29a9dff51a936a645c2ea0a145c478b63df04dde4639044b03325d4f7619386&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (1200, 800)
+DEBUG: Image resized to fit paper width from bytes: (576, 384)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 27648 bytes.
+DEBUG: First 20 bytes of printer data: 0080000008000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377563092275167232/IMG_6283.jpg?ex=68396b1b&is=6838199b&hm=b9ce4aa87965c940d3f4dce44683e65ae96c31a1977ee5e77790bd0a6a43f0cb&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (4032, 3024)
+DEBUG: Image resized to fit paper width from bytes: (576, 432)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31104 bytes.
+DEBUG: First 20 bytes of printer data: eaa8000000000010410421082108410844444924
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377563420089385062/IMG_6196.png?ex=68396b69&is=683819e9&hm=6700539e4854cb90c9579923ab6eecc296c49554399319875b71a0791c22823d&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (269, 328)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image padded to width 272 (multiple of 8) from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 11152 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377563436661211146/image.png?ex=68396b6d&is=683819ed&hm=7fd9f44ebe4f0114624e7a5cc56092429bda253a43f2c0e686107251b471fb45&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (632, 449)
+DEBUG: Image resized to fit paper width from bytes: (576, 409)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 29448 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377563741150908426/IMG_0479.jpg?ex=68396bb5&is=68381a35&hm=666e9c21e2a048cd6be5edaa9df4feb1c88fae03708d4b609754bbce21ab1bac&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (1980, 3520)
+DEBUG: Image resized to fit paper width from bytes: (576, 1024)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 73728 bytes.
+DEBUG: First 20 bytes of printer data: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377564006767657112/IMG_1518.png?ex=68396bf5&is=68381a75&hm=22d4c34cf04277aa40728a5078e7a070426563ee9243ca9171af507a5539851e&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (240, 104)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 3120 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377564220257861723/image0.jpg?ex=68396c28&is=68381aa8&hm=03be2baebcf2f591bd921f85db3d18361fa267bf8e518508eb6487462d1823e3&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (1940, 2040)
+DEBUG: Image resized to fit paper width from bytes: (576, 605)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 43560 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+[2025-05-29 17:29:02] [WARNING ] discord.gateway: Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 193, in <module>
+    bot.run(TOKEN)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 906, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 607, in run_forever
+    self._run_once()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 1922, in _run_once
+    handle._run()
+  File "/usr/lib/python3.11/asyncio/events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 188, in on_message
+    driver.cut_paper(mode='full')
+  File "/home/bacon/MCP31PrinterBOT/printer_driver.py", line 429, in cut_paper
+    if not self._connect():
+  File "/home/bacon/MCP31PrinterBOT/printer_driver.py", line 36, in _connect
+    time.sleep(0.5) # プリンターがコマンドを処理するのを待つ
+
+WARNING:discord.gateway:Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 193, in <module>
+    bot.run(TOKEN)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 906, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 607, in run_forever
+    self._run_once()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 1922, in _run_once
+    handle._run()
+  File "/usr/lib/python3.11/asyncio/events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 188, in on_message
+    driver.cut_paper(mode='full')
+  File "/home/bacon/MCP31PrinterBOT/printer_driver.py", line 429, in cut_paper
+    if not self._connect():
+  File "/home/bacon/MCP31PrinterBOT/printer_driver.py", line 36, in _connect
+    time.sleep(0.5) # プリンターがコマンドを処理するのを待つ
+
+[2025-05-29 17:31:16] [WARNING ] discord.gateway: Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 193, in <module>
+    bot.run(TOKEN)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 906, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 607, in run_forever
+    self._run_once()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 1922, in _run_once
+    handle._run()
+  File "/usr/lib/python3.11/asyncio/events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 169, in on_message
+    driver.print_image_from_bytes(image_bytes)
+  File "/home/bacon/MCP31PrinterBOT/printer_driver.py", line 315, in print_image_from_bytes
+    img.save("debug_bytes_initial.png")
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/PIL/Image.py", line 2597, in save
+    fp.close()
+
+WARNING:discord.gateway:Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 193, in <module>
+    bot.run(TOKEN)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 906, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 607, in run_forever
+    self._run_once()
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 1922, in _run_once
+    handle._run()
+  File "/usr/lib/python3.11/asyncio/events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/discord/client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/bacon/MCP31PrinterBOT/bot.py", line 169, in on_message
+    driver.print_image_from_bytes(image_bytes)
+  File "/home/bacon/MCP31PrinterBOT/printer_driver.py", line 315, in print_image_from_bytes
+    img.save("debug_bytes_initial.png")
+  File "/home/bacon/MCP31PrinterBOT/.venv/lib/python3.11/site-packages/PIL/Image.py", line 2597, in save
+    fp.close()
+
+[2025-05-29 17:31:33] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session 74362f912777a7b96a4e6838141cc677.
+INFO:discord.gateway:Shard ID None has successfully RESUMED session 74362f912777a7b96a4e6838141cc677.
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377564301031772231/IMG_0519.jpg?ex=68396c3b&is=68381abb&hm=de6c43da6f0d6dab2db73398f534bf1c903e5112f237cc1a2f0cf1f16b389b87&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (2160, 2880)
+DEBUG: Image resized to fit paper width from bytes: (576, 768)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 55296 bytes.
+DEBUG: First 20 bytes of printer data: 000004925555554aaaaaaabbbbdef7bf7dffffff
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377564789433172018/IMG_1384.jpg?ex=68396caf&is=68381b2f&hm=1b55f27bda417dbf78f81318ec579000d72610472c98e9000f04394be5f308be&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (3024, 4032)
+DEBUG: Image resized to fit paper width from bytes: (576, 768)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 55296 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377564795141750898/IMG_1385.jpg?ex=68396cb1&is=68381b31&hm=d50ca15afe0589f3371a527d3267687f19f4043019bee01e88c562ee8dd04c51&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (3024, 4032)
+DEBUG: Image resized to fit paper width from bytes: (576, 768)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 55296 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377564932710596618/image0.jpg?ex=68396cd1&is=68381b51&hm=a7a34372c64f04b24dbee3e04834448b8bf94ea46908e01cd6f440ca499a799f&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (1124, 1124)
+DEBUG: Image resized to fit paper width from bytes: (576, 576)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 41472 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-05-29 17:33:33] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-05-29 17:33:34] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: f70d8a86eb80281b73b33e415b290c27).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: f70d8a86eb80281b73b33e415b290c27).
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-05-29 19:19:50] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-05-29 19:19:51] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: c5c678599a4a993e6f28db0e5218565a).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: c5c678599a4a993e6f28db0e5218565a).
+[2025-05-29 19:20:29] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session c5c678599a4a993e6f28db0e5218565a.
+INFO:discord.gateway:Shard ID None has successfully RESUMED session c5c678599a4a993e6f28db0e5218565a.
+Logged in as MentionAlertBOT#8803
+Target User IDs: [319226423623548928, 1377184132731502632]
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377592479293112450/IMG_20240625_091935.png?ex=68398679&is=683834f9&hm=168655a9590a0cab12fbc1d3e0ce8a1492185acd80a435304552dacb08b2d9e4&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (4096, 1844)
+DEBUG: Image resized to fit paper width from bytes: (576, 259)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 18648 bytes.
+DEBUG: First 20 bytes of printer data: 00000449480004a8000000000000015555555555
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377592622234992640/IMG_0814.jpg?ex=6839869b&is=6838351b&hm=2cb84fb39e0fdaddf3e8df5f6768b46bfd729c2cf89367997630b3ed70f9e48e&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (1024, 768)
+DEBUG: Image resized to fit paper width from bytes: (576, 432)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 31104 bytes.
+DEBUG: First 20 bytes of printer data: 4924a4924924924492492492a5249244a4924924
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+画像をダウンロードしました: https://cdn.discordapp.com/attachments/772714095581462549/1377592791533883472/IMG_20241128_115451.jpg?ex=683986c3&is=68383543&hm=5f29584dc43a4ccd653bb039e2703170a14b5bfbb456e3025f52f9975d71f704&
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printer initialized before image printing from bytes.
+DEBUG: Image received from bytes. Initial mode: RGB, size: (3904, 5184)
+DEBUG: Image resized to fit paper width from bytes: (576, 764)
+DEBUG: RGB/RGBA image converted to L (Luma) with gamma correction from bytes.
+DEBUG: Image converted to 1-bit monochrome with Pillow's FLOYDSTEINBERG dithering from bytes.
+DEBUG: Image data converted to bytes for printer. Length: 55008 bytes.
+DEBUG: First 20 bytes of printer data: 0000000000000000000000000000000000000000
+バイト列から画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+DEBUG: Printing 5 empty lines for paper feed.
+5行の空白行を印刷しました。
+
+--- 紙をカット ---
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+用紙カットコマンド 'full' を送信しました。
+プリンター 192.168.0.200:9100 への接続をチェック中...
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+プリンターへの接続に成功しました。
+プリンターに接続できます。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+DEBUG: Generated text image saved to output_text_image.png
+DEBUG: Connecting to printer at 192.168.0.200:9100...
+DEBUG: Connection established and printer initialized.
+画像をラスターモードで印刷しました。
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-05-29 19:24:49] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-05-29 19:24:50] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 2e9005f37e99486a33f0e2a0835c3c77).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 2e9005f37e99486a33f0e2a0835c3c77).

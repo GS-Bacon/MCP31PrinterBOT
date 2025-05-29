@@ -156,7 +156,7 @@ async def on_message(message: discord.Message):
         text_image_obj = converter.text_to_bitmap(f"================================================\nDiscord {data_structure['type']} !!!!\nto {data_structure['sender_username']}\n================================================\n", output_path=image_output_path)
         driver.print_image(text_image_obj)
         #本文
-        formatted_text, urls=format_text_with_url_summary(data_structure['content'],max_line_length=40,max_display_length=300, url_title_max_length=15)
+        formatted_text, urls=format_text_with_url_summary(data_structure['content'],max_line_length=30,max_display_length=300, url_title_max_length=15)
         text_to_print_image = formatted_text
         text_image_obj = converter.text_to_bitmap(text_to_print_image, output_path=image_output_path)
         if text_image_obj:
@@ -164,7 +164,7 @@ async def on_message(message: discord.Message):
         #添付画像印刷
         for img in data_structure['attachments']:
             if img["is_image"]:
-                image_bytes = await download_image(attachment_info["url"])
+                image_bytes = await download_image(img["url"])
                 if image_bytes:
                     driver.print_image_from_bytes(image_bytes)
         #含まれるURLをQRにして添付
