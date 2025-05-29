@@ -172,6 +172,7 @@ class PrinterDriver:
         except UnicodeEncodeError as e:
             print(f"ERROR: 文字列のエンコードに失敗しました ({encoding}): {e}")
             print("DEBUG: 指定されたエンコーディングで文字列が表現できない可能性があります。")
+            return 0
         except socket.timeout:
             print(f"ERROR: テキスト印刷タイムアウト - プリンター ({self.printer_ip}:{self.printer_port}) へのテキスト送信がタイムアウトしました。")
         except socket.error as e:

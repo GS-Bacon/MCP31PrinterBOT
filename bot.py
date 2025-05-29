@@ -20,6 +20,8 @@ FONT_PATH='/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
 # メンションやメッセージ内容を取得するために必要なインテントを有効にする
 intents = discord.Intents.default()
 intents.message_content = True  # メッセージ内容の読み取りを許可
+intents.dm_messages = True      # DMメッセージの読み取りを許可
+intents.guild_messages = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 def PrintImg(image_bytes: bytes):
@@ -93,7 +95,10 @@ async def on_message(message: discord.Message):
     # ボット自身のメッセージは無視
     if message.author == bot.user:
         return
+    is_dm = (message.guild is None)
 
+    # 送信者名の設定 (DMの場合は匿名化)
+    sender_display_name = "匿名ユーザー" if is_dm else message.author.display_name
     # メッセージ内容からメンション部分を削除
     cleaned_content = clean_message_content(message.content)
 
@@ -108,10 +113,15 @@ async def on_message(message: discord.Message):
     }
 
     # メッセージURLを取得
-    if message.guild:
-        data_structure["message_url"] = f"https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}"
-    else: # DMの場合
+    if is_dm:
+        # DMの場合、チャンネルURLは基本的に「@me」で表現され、メッセージIDはDMチャンネルIDとは別。
+        # 特定のDMチャンネルへの直接リンクはdiscord.pyのmessage.channel.idで表現できる。
+        # ただしブラウザでのDMの直接URLはユーザー個人のものであり、他者と共有できない。
+        # ここではメッセージへの直接リンクのみを生成する。
         data_structure["message_url"] = f"https://discord.com/channels/@me/{message.channel.id}/{message.id}"
+    else: # ギルド（サーバー）メッセージの場合
+        data_structure["message_url"] = f"https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}"
+        data_structure["channel_url"] = f"https://discord.com/channels/{message.guild.id}/{message.channel.id}"
 
     # 添付ファイル (画像を含む) の取得
     for attachment in message.attachments:
@@ -122,6 +132,15 @@ async def on_message(message: discord.Message):
         }
         data_structure["attachments"].append(attachment_info)
     # メンションの検出
+    if is_dm:
+        data_structure["type"] = "dm"
+        print(f"--- DMメッセージ検出 ---")
+        print(f"送信者: {data_structure['sender_username']}") # 匿名化された名前が表示される
+        print(f"内容: {data_structure['content']}")
+        print(f"メッセージURL: {data_structure['message_url']}")
+        if data_structure['attachments']:
+            print(f"添付ファイル: {[att['filename'] for att in data_structure['attachments']]}")
+
     is_target_mentioned = False
     if message.mentions:
         for user in message.mentions:
@@ -141,7 +160,7 @@ async def on_message(message: discord.Message):
 
     if is_reply_to_target:
         data_structure["type"] = "reply"
-    if is_target_mentioned or is_reply_to_target:
+    if is_target_mentioned or is_reply_to_target or is_dm:
         driver = PrinterDriver()
         converter = ImageConverter(
         font_path=FONT_PATH,
@@ -153,14 +172,16 @@ async def on_message(message: discord.Message):
         else:
             print("プリンターに接続できません。IPアドレスやケーブル接続を確認してください。")
         image_output_path = "output_text_image.png"
-        text_image_obj = converter.text_to_bitmap(f"================================================\nDiscord {data_structure['type']} !!!!\nto {data_structure['sender_username']}\n================================================\n", output_path=image_output_path)
-        driver.print_image(text_image_obj)
+        if is_dm:
+            driver.print_text_raw(f"================================================\nDiscord {data_structure['type']} !!!!\nto Anonymou\n================================================\n")
+        else:
+            driver.print_text_raw(f"================================================\nDiscord {data_structure['type']} !!!!\nto {data_structure['sender_username']}\n================================================\n")
         #本文
-        formatted_text, urls=format_text_with_url_summary(data_structure['content'],max_line_length=30,max_display_length=300, url_title_max_length=15)
-        text_to_print_image = formatted_text
-        text_image_obj = converter.text_to_bitmap(text_to_print_image, output_path=image_output_path)
-        if text_image_obj:
-            driver.print_image(text_image_obj)
+        print("本文を印刷")
+        formatted_text, urls=format_text_with_url_summary(data_structure['content'],max_line_length=22,max_display_length=900, url_title_max_length=15)
+        result=driver.print_text_raw(f"{formatted_text}")
+        if result==0:
+            driver.print_image(converter.text_to_bitmap(formatted_text,image_output_path))
         #添付画像印刷
         for img in data_structure['attachments']:
             if img["is_image"]:
