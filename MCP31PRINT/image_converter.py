@@ -102,3 +102,64 @@ class ImageConverter:
             except Exception as e:
                 print(f"ERROR: 画像保存中にエラーが発生しました: {e}")
         return img
+    
+    def image_from_bytes(self, image_bytes: bytes) -> Image.Image | None:
+        """
+        バイト列形式の画像データをPIL.Imageオブジェクトに変換する。
+        :param image_bytes: 画像のバイト列データ (PNG, JPEGなどのファイルデータ)
+        :return: 変換されたPIL.Imageオブジェクト、またはエラーの場合はNone
+        """
+        try:
+            img_io = io.BytesIO(image_bytes)
+            img = Image.open(img_io)
+            print(f"DEBUG: Successfully converted bytes to PIL Image. Mode: {img.mode}, Size: {img.size}")
+            return img
+        except Exception as e:
+            print(f"ERROR: バイト列からの画像変換中にエラーが発生しました: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+
+    def combine_images_vertically(self, images: list[Image.Image], padding: int = 1) -> Image.Image | None:
+        """
+        複数のPIL.Imageオブジェクトを垂直方向に結合して1枚の画像にする。
+        結合された画像の幅は、リスト内で最も幅の広い画像の幅に合わせられる。
+        結合された画像は、各画像を水平方向中央に配置する。
+        :param images: 結合するPIL.Imageオブジェクトのリスト
+        :param padding: 各画像間のパディング（ピクセル数）
+        :return: 結合されたPIL.Imageオブジェクト、またはエラーの場合はNone
+        """
+        if not images:
+            print("WARNING: 結合する画像が指定されていません。")
+            return None
+
+        # RGBモードに変換しておく
+        processed_images = []
+        for img in images:
+            if img.mode != 'RGB':
+                processed_images.append(img.convert('RGB'))
+            else:
+                processed_images.append(img)
+        images = processed_images
+
+        max_width = 0
+        total_height = 0
+
+        for i, img in enumerate(images):
+            max_width = max(max_width, img.width)
+            total_height += img.height
+            if i < len(images) - 1: # 最後の画像以外にパディングを追加
+                total_height += padding
+
+        # 結合された画像を作成 (白背景)
+        combined_img = Image.new('RGB', (max_width, total_height), color=(255, 255, 255))
+
+        current_y_offset = 0
+        for img in images:
+            # 画像を中央に配置するためのX座標
+            x_offset = (max_width - img.width) // 2
+            combined_img.paste(img, (x_offset, current_y_offset))
+            current_y_offset += img.height + padding
+
+        print(f"DEBUG: Combined images vertically. Final size: {combined_img.size}")
+        return combined_img

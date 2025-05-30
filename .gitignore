@@ -5,3 +5,4 @@ my_discord_secrets.py
 *.sh
 *.local_config
 *.log
+*.jpg

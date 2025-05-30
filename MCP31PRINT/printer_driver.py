@@ -8,7 +8,7 @@ import socket
 from struct import pack 
 
 # local_configから設定をインポート
-from local_config import LocalPrinterConfig
+from MCP31PRINT.local_config import LocalPrinterConfig
 
 class PrinterDriver:
     def __init__(self):
