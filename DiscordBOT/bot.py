@@ -261,13 +261,13 @@ async def on_message(message: discord.Message):
                 if qr_small_image:
                     QRS.append(qr_small_image)
         if len(QRS)>0:
-            converter.combine_images_vertically(QRS)
+            QRImages=converter.combine_images_vertically(QRS)
         print(f"ヘッダー！！！！！！！！！！！！！！！！{header_text}")
         client.send_data(
-            header_data=header_text,
+            header_data={"type": "text", "content": header_text}, # FileSenderClientが期待する形式に合わせる
             body_text_message=body_text,
             body_image_bytes_list=body_image_bytes_list if body_image_bytes_list else None,
-            footer_data= QRImages if QRS else None
+            footer_data={"type": "image", "content": QRImages} if QRImages else None
         )
     
     await bot.process_commands(message)
