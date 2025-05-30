@@ -25,28 +25,27 @@ class FileSenderClient:
         self.server_ip = ActualClientConfig().SERVER_IP
         self.server_port = ActualClientConfig().SERVER_PORT
 
-    # send_data 関数の引数を変更: body_image_paths -> body_image_bytes_list
     def send_data(self, header_data=None, body_text_message=None, body_image_bytes_list=None, footer_data=None):
-        
-        # serialize_data 関数に、新しい引数を渡す
-        data_to_send = serialize_data(
-            header=header_data,
+        # ★★★ ここが重要！ serialize_data に渡す引数が正しいか確認
+        serialized_data = serialize_data(
+            header=header_data, # header_data は bot.py から辞書で渡される
             body_text=body_text_message,
-            body_image_bytes_list=body_image_bytes_list, # ここにバイト列のリストを渡す
+            body_image_bytes_list=body_image_bytes_list,
             footer=footer_data
         )
-        
-        data_to_send += b"<END_OF_TRANSMISSION>"
 
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            try:
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.connect((self.server_ip, self.server_port))
-                s.sendall(data_to_send)
-                print(f"Data sent successfully to {self.server_ip}:{self.server_port}")
-            except ConnectionRefusedError:
-                print(f"Connection refused. Make sure the server is running on {self.server_ip}:{self.server_port}")
-            except Exception as e:
-                print(f"An error occurred: {e}")
+                s.sendall(serialized_data + b"<END_OF_TRANSMISSION>")
+            print("データが正常に送信されました。")
+            return True
+        except socket.error as e:
+            print(f"ソケットエラーが発生しました: {e}")
+            return False
+        except Exception as e:
+            print(f"データ送信中に予期せぬエラーが発生しました: {e}")
+            return False
 
 if __name__ == "__main__":
     client = FileSenderClient()

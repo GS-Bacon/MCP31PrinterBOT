@@ -2,32 +2,32 @@ import discord
 from discord.ext import commands
 from .my_discord_secrets import MyDiscordSecrets
 import re
-from MCP31PRINT.printer_driver import PrinterDriver
+# from MCP31PRINT.printer_driver import PrinterDriver # ★★★ 完全に削除またはコメントアウト
 from MCP31PRINT.image_converter import ImageConverter
 from WebService.client.client import FileSenderClient
 from MCP31PRINT.qr_image_generator import QRImageGenerator
 import requests
 import aiohttp
 from MCP31PRINT.text_formatter import format_text_with_url_summary
-from PIL import Image, ImageDraw # ImageDraw も追加
+from PIL import Image, ImageDraw
 
-import json # JSONファイルの読み書き用
-import os   # ファイルパス操作用
+import json
+import os
 
 # DiscordConfigから設定を読み込む
 config = MyDiscordSecrets()
 TOKEN = config.bot_token
 TARGET_USER_IDS = config.target_user_ids
-FONT_PATH = '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc' # 必要に応じてパスを調整
+FONT_PATH = '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
 
 # DM送信済みユーザーIDを記録するファイル
-DM_SENT_USERS_FILE = 'dm_sent_users.json'
+DM_SENT_USERS_FILE = '/home/bacon/MCP31PrinterBOT/DiscordBOT/dm_sent_users.json'
 
 # インテントを設定
 intents = discord.Intents.default()
 intents.message_content = True
 intents.dm_messages = True
-intents.guild_messages = True # ギルドメッセージも引き続き処理するため有効
+intents.guild_messages = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 
@@ -49,16 +49,6 @@ def save_dm_sent_users(user_ids: list[int]):
 
 # グローバル変数としてDM送信済みユーザーIDのリストを初期化
 dm_sent_user_ids = load_dm_sent_users()
-
-
-def PrintImg(image_bytes: bytes):
-    """
-    ダウンロードした画像のバイトデータを受け取り、処理するダミー関数。
-    ここに実際の画像処理ロジックを記述します。
-    """
-    print(f"--- PrintImg関数が画像を処理中 ---")
-    print(f"画像データのサイズ: {len(image_bytes)}バイト")
-    print(f"--- PrintImg関数による画像処理完了 (仮) ---")
 
 async def download_image(url: str) -> bytes | None:
     """
@@ -120,8 +110,8 @@ async def on_message(message: discord.Message):
         "message_url": None,
         "content": cleaned_content,
         "attachments": [],
-        "server_name": None,  # 新しく追加
-        "channel_name": None, # 新しく追加
+        "server_name": None,
+        "channel_name": None,
         "channel_url": None
     }
 
@@ -144,10 +134,11 @@ async def on_message(message: discord.Message):
             "is_image": attachment.content_type.startswith("image/") if attachment.content_type else False
         }
         data_structure["attachments"].append(attachment_info)
+        
     # DMメッセージの処理と自動返信
     if is_dm:
         print(f"--- DMメッセージ検出 ---")
-        print(f"送信者: {data_structure['sender_username']}") # 匿名化された名前が表示される
+        print(f"送信者: {data_structure['sender_username']}")
         print(f"内容: {data_structure['content']}")
         print(f"メッセージURL: {data_structure['message_url']}")
         if data_structure['attachments']:
@@ -197,19 +188,21 @@ async def on_message(message: discord.Message):
             print(f"データ: {data_structure}")
             print(f"--------------------")
     
-    # ここからプリンター出力の共通処理
+    # ここからFileSenderClientへのデータ送信処理
     # DM, メンション, リプライのいずれかの条件が満たされた場合に実行
-    if data_structure["type"] is not None: # DM, mention, reply のいずれかであれば
-        driver = PrinterDriver()
+    if data_structure["type"] is not None:
+        # PrinterDriver を bot.py で直接使う必要はないため、インスタンス化しない
+        # driver = PrinterDriver() # ★★★ 削除
+
+        # ImageConverter は QRコード結合のために必要なので残す
+        # default_width は PrinterDriver.paper_width_dots の値（通常384）に合わせる
         converter = ImageConverter(
             font_path=FONT_PATH,
             font_size=20,
-            default_width=driver.paper_width_dots
+            default_width=384 # MCP31PRINT/printer_driver.py の paper_width_dots と同じ値にすること
         )
-        if driver.check_connection():
-            print("プリンターに接続できます。")
-        else:
-            print("プリンターに接続できません。IPアドレスやケーブル接続を確認してください。")
+        
+        # FileSenderClient のインスタンス化
         client = FileSenderClient() 
 
         # ヘッダー情報の生成
@@ -226,50 +219,68 @@ async def on_message(message: discord.Message):
                           f"Server: {data_structure['server_name'] if data_structure['server_name'] else 'N/A'}\n" \
                           f"Channel: #{data_structure['channel_name'] if data_structure['channel_name'] else 'N/A'}\n" \
                           f"================================================\n"
+        
+        # 本文の印刷 (準備)
+        # format_text_with_url_summary の結果をそのまま送る
+        formatted_text, urls_from_content = format_text_with_url_summary(
+            data_structure['content'],
+            max_line_length=22, # あなたの希望に合わせて調整
+            max_display_length=900,
+            url_title_max_length=15
+        )
+        body_text_to_send = formatted_text # 整形済みテキストをクライアントに送る
 
-        # 本文の印刷
-        body_text=""
-        body_result=format_text_with_url_summary(data_structure['content'],max_line_length=30,max_display_length=900, url_title_max_length=15)
-        if data_structure['content']:
-            body_text=body_result[0]
-
-        # 添付画像印刷 (PrintImg関数が既にダウンロードと処理を行っているため、ここではdriver.print_image_from_bytesを呼び出す)
+        # 添付画像データの準備
         body_image_bytes_list = []
-        for img in data_structure['attachments']:
-            if img["is_image"]:
-                image_bytes = await download_image(img["url"]) # ここでダウンロードし直す
+        for img_attachment in data_structure['attachments']:
+            if img_attachment["is_image"]:
+                image_bytes = await download_image(img_attachment["url"])
                 if image_bytes:
                     body_image_bytes_list.append(image_bytes)
-        #フッター
-        
-        # 含まれるURLをQRにして添付
-        # urls変数がformat_text_with_url_summaryから返されることを想定
-        QRS=[]
-        QRImages=None
-        if 'urls' in locals() and body_result: # urlsが存在し、空でないことを確認
-            qr_generator = QRImageGenerator(font_path=FONT_PATH)
-            for url in body_result[1]:
-                qr_data_short = url[0]
-                description_short = url[1]
-                qr_small_image = qr_generator.generate_qr_with_text(
+
+        # フッター (QRコード画像) の準備と結合
+        footer_qr_images_pil = [] # PIL Imageオブジェクトのリスト
+        qr_generator = QRImageGenerator(font_path=FONT_PATH)
+        if urls_from_content: # urls_from_content を使用
+            for url_data in urls_from_content:
+                qr_data_short = url_data[0]
+                description_short = url_data[1]
+                qr_small_image_pil = qr_generator.generate_qr_with_text(
                     qr_data_short, 
                     description_short, 
                     "output_qr_small.png", 
                     qr_box_size=4,
                     qr_border=2
                 )
-                if qr_small_image:
-                    QRS.append(qr_small_image)
-        if len(QRS)>0:
-            QRImages=converter.combine_images_vertically(QRS)
-        print(f"ヘッダー！！！！！！！！！！！！！！！！{header_text}")
-        client.send_data(
-            header_data={"type": "text", "content": header_text}, # FileSenderClientが期待する形式に合わせる
-            body_text_message=body_text,
-            body_image_bytes_list=body_image_bytes_list if body_image_bytes_list else None,
-            footer_data={"type": "image", "content": QRImages} if QRImages else None
-        )
-    
+                if qr_small_image_pil:
+                    footer_qr_images_pil.append(qr_small_image_pil)
+        
+        combined_qr_image_bytes = None
+        if footer_qr_images_pil:
+            combined_pil_image = converter.combine_images_vertically(footer_qr_images_pil)
+            if combined_pil_image:
+                import io
+                with io.BytesIO() as buffer:
+                    combined_pil_image.save(buffer, format='PNG') # または 'BMP', 'JPEG' などプリンターがサポートする形式
+                    combined_qr_image_bytes = buffer.getvalue()
+
+        # client.send_data の呼び出し
+        print(f"ヘッダーデータをFileSenderClientに送信（最終形式）:\n{header_text.strip()}")
+        print(f"本文テキストをFileSenderClientに送信（整形済み）:\n{body_text_to_send.strip()}")
+        print(f"添付画像数: {len(body_image_bytes_list)}")
+        print(f"QRコード画像データあり: {combined_qr_image_bytes is not None}")
+
+        try:
+            client.send_data(
+                header_data={"type": "text", "content": header_text},
+                body_text_message=body_text_to_send, # 整形済みテキスト
+                body_image_bytes_list=body_image_bytes_list if body_image_bytes_list else None,
+                footer_data={"type": "image", "content": combined_qr_image_bytes} if combined_qr_image_bytes else None # QRコードはバイトデータ
+            )
+            print("データをFileSenderClientに正常に送信しました。")
+        except Exception as e:
+            print(f"FileSenderClientへのデータ送信中にエラーが発生しました: {e}")
+
     await bot.process_commands(message)
 
 # ボットを実行

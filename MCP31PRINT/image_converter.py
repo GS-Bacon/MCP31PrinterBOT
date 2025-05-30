@@ -157,7 +157,7 @@ class ImageConverter:
         current_y_offset = 0
         for img in images:
             # 画像を中央に配置するためのX座標
-            x_offset = (max_width - img.width) // 2
+            x_offset = 0
             combined_img.paste(img, (x_offset, current_y_offset))
             current_y_offset += img.height + padding
 
