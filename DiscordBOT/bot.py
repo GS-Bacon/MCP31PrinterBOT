@@ -224,7 +224,7 @@ async def on_message(message: discord.Message):
         # format_text_with_url_summary の結果をそのまま送る
         formatted_text, urls_from_content = format_text_with_url_summary(
             data_structure['content'],
-            max_line_length=22, # あなたの希望に合わせて調整
+            max_line_length=30, # あなたの希望に合わせて調整
             max_display_length=900,
             url_title_max_length=15
         )

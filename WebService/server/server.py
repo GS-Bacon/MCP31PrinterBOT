@@ -2,6 +2,7 @@ import socket
 import threading
 import os
 import sys
+import queue # queueモジュールをインポート
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.join(current_dir, '..')
@@ -15,9 +16,7 @@ from MCP31PRINT.printer_driver import PrinterDriver
 from MCP31PRINT.image_converter import ImageConverter
 from MCP31PRINT.text_formatter import format_text_with_url_summary
 FONT_PATH='/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
-# 実際のServerConfigクラスをインポートします
-# ユーザーは ServerConfig.py.template をコピーして MyActualServerConfig.py などを作成し、
-# そのファイルをインポートするように設定します。
+
 try:
     from .MyActualServerConfig import MyActualServerConfig as ActualServerConfig
 except ImportError:
@@ -29,8 +28,99 @@ class FileReceiverServer:
     def __init__(self):
         self.host = ActualServerConfig().SERVER_IP
         self.port = ActualServerConfig().SERVER_PORT
-        self.output_dir = os.path.join(current_dir, "/home/bacon/MCP31PrinterBOT/WebService/server/received_files") # output_dir をより安全なパスに
+        self.output_dir = os.path.join(current_dir, "received_files") # output_dir は相対パスのままでOK
+                                                                        # os.path.join は絶対パスと結合すると絶対パスになる
         os.makedirs(self.output_dir, exist_ok=True)
+
+        # ★追加: プリントジョブキューを初期化
+        self.print_queue = queue.Queue()
+        # ★追加: ワーカースレッドを起動
+        self.printer_worker_thread = threading.Thread(target=self._printer_worker, daemon=True)
+        self.printer_worker_thread.start()
+        print("Printer worker thread started.")
+
+    def _printer_worker(self):
+        """
+        プリントキューからジョブを取り出し、順次プリンターに送信するワーカースレッド。
+        """
+        driver = PrinterDriver()
+        converter = ImageConverter(
+            font_path=FONT_PATH,
+            font_size=30,
+            default_width=driver.paper_width_dots
+        )
+        
+        while True:
+            # キューからジョブを取得。キューが空の場合は、ジョブが来るまでここで待機する。
+            job_data = self.print_queue.get() 
+            print(f"Processing print job from queue. Queue size: {self.print_queue.qsize()}")
+
+            try:
+                # job_data は deserialize_data の返り値（header_data, body_text, body_image_bytes_list, footer_data）
+                header_data, body_text, body_image_bytes_list, footer_data = job_data
+
+                imglist = []
+                
+                # ヘッダー処理
+                if header_data:
+                    if isinstance(header_data, dict) and header_data.get("type") == "text" and header_data.get("content"):
+                        imglist.append(converter.text_to_bitmap(text=header_data["content"]))
+                    elif isinstance(header_data, dict) and header_data.get("type") == "image" and header_data.get("content"):
+                        imglist.append(converter.image_from_bytes(header_data["content"]))
+                    elif isinstance(header_data, str):
+                        imglist.append(converter.text_to_bitmap(text=header_data))
+                    else:
+                        print(f"Warning: Unexpected header_data format in worker: {type(header_data)} - {header_data}")
+
+                # 本文テキスト処理
+                if body_text:
+                    formatted_body_text = format_text_with_url_summary(body_text, max_line_length=30, max_display_length=900, url_title_max_length=15)[0]
+                    imglist.append(converter.text_to_bitmap(text=formatted_body_text))
+                    print(f"Converting body text to image in worker: {body_text[:50]}...") # 長すぎる場合は一部のみ表示
+
+                # 本文画像処理
+                if body_image_bytes_list:
+                    for i, image_bytes in enumerate(body_image_bytes_list):
+                        imglist.append(converter.image_from_bytes(image_bytes=image_bytes))
+                        print(f"Converting body image {i+1} to image in worker.")
+
+                # フッター処理
+                if footer_data:
+                    if isinstance(footer_data, dict) and footer_data.get("type") == "image" and footer_data.get("content"):
+                        imglist.append(converter.image_from_bytes(footer_data["content"]))
+                        print("Converting footer QR image to image in worker.")
+                    elif isinstance(footer_data, dict) and footer_data.get("type") == "text" and footer_data.get("content"):
+                        imglist.append(converter.text_to_bitmap(text=footer_data["content"]))
+                        print("Converting footer text to image in worker.")
+                    elif isinstance(footer_data, bytes):
+                        imglist.append(converter.image_from_bytes(footer_data))
+                        print("Converting raw footer image bytes to image in worker.")
+                    else:
+                        print(f"Warning: Unexpected footer_data format in worker: {type(footer_data)} - {footer_data}")
+
+                # すべての画像を結合して印刷
+                if imglist:
+                    printimg = converter.combine_images_vertically(images=imglist)
+                    if printimg:
+                        driver.print_image(printimg)
+                        driver.print_empty_lines(5)
+                        print("\n--- 紙をカット ---")
+                        driver.cut_paper(mode='full')
+                        print(f"Job completed successfully. Remaining in queue: {self.print_queue.qsize()}")
+                    else:
+                        print("Worker: No combined image to print.")
+                else:
+                    print("Worker: No content to print for this job.")
+
+            except Exception as e:
+                print(f"Error processing print job in worker: {e}")
+                import traceback
+                traceback.print_exc()
+            finally:
+                # ジョブ処理が完了したことをキューに通知
+                self.print_queue.task_done()
+                print(f"Job finished. Remaining in queue: {self.print_queue.qsize()}")
+
 
     def _handle_client(self, conn, addr):
         print(f"Connected by {addr}")
@@ -45,80 +135,22 @@ class FileReceiverServer:
                     data_buffer = data_buffer.replace(b"<END_OF_TRANSMISSION>", b"")
                     break
 
+            # 受信したデータをキューに追加するだけに変更
             header_data, body_text, body_image_bytes_list, footer_data = deserialize_data(data_buffer)
+            
+            # 受信時刻と送信元IPは、ファイル保存などのデバッグ用途で残しておく
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
             sender_ip = addr[0].replace('.', '_')
 
-            driver = PrinterDriver()
-            converter = ImageConverter(
-                font_path=FONT_PATH,
-                font_size=30, # 必要に応じて調整
-                default_width=driver.paper_width_dots # プリンターの紙幅に合わせる
-            )
-
-            imglist=[]
-            
-            # ヘッダープリント
-            if header_data:
-                # header_data は既に整形済みの文字列として bot.py から送られてくることを想定
-                # bot.py で {"type": "text", "content": header_text} の形式で送っている場合、
-                # ここで {"type": "text", "content": "..."} の形式で受け取れる
-                if isinstance(header_data, dict) and header_data.get("type") == "text" and header_data.get("content"):
-                    imglist.append(converter.text_to_bitmap(text=header_data["content"]))
-                # 画像ヘッダーの可能性も考慮（もし将来的に画像ヘッダーを送るなら）
-                elif isinstance(header_data, dict) and header_data.get("type") == "image" and header_data.get("content"):
-                    imglist.append(converter.image_from_bytes(header_data["content"]))
-                elif isinstance(header_data, str): # bot.py が文字列を直接送る場合
-                    imglist.append(converter.text_to_bitmap(text=header_data))
-                else:
-                    print(f"Warning: Unexpected header_data format: {type(header_data)} - {header_data}")
-
-
-            # 本文プリント (bot.py で整形済みなので、ここでは再整形しない)
-            if body_text:
-                # bot.py から送られてくる body_text は既に format_text_with_url_summary の結果であると仮定
-                imglist.append(converter.text_to_bitmap(text=body_text))
-                print(f"Received body text and converting to image: {body_text}")
-
-            # 添付画像プリント
-            if body_image_bytes_list:
-                for i, image_bytes in enumerate(body_image_bytes_list):
-                    imglist.append(converter.image_from_bytes(image_bytes=image_bytes))
-                    print(f"Received body image {i+1} and converting to image.")
-
-            # フッタープリント (QRコード画像)
-            if footer_data:
-                # footer_data は {"type": "image", "content": combined_qr_image_bytes} の形式を想定
-                if isinstance(footer_data, dict) and footer_data.get("type") == "image" and footer_data.get("content"):
-                    # content はバイトデータなので、直接 image_from_bytes に渡す
-                    imglist.append(converter.image_from_bytes(footer_data["content"]))
-                    print("Received footer QR image and converting to image.")
-                elif isinstance(footer_data, dict) and footer_data.get("type") == "text" and footer_data.get("content"):
-                    imglist.append(converter.text_to_bitmap(text=footer_data["content"]))
-                    print("Received footer text and converting to image.")
-                elif isinstance(footer_data, bytes): # bot.py がバイトデータを直接送る場合
-                     imglist.append(converter.image_from_bytes(footer_data))
-                     print("Received raw footer image bytes and converting to image.")
-                else:
-                    print(f"Warning: Unexpected footer_data format: {type(footer_data)} - {footer_data}")
-
-            # すべての画像を結合して印刷
-            if imglist:
-                printimg = converter.combine_images_vertically(images=imglist)
-                if printimg:
-                    driver.print_image(printimg)
-                    driver.print_empty_lines(5)
-                    print("\n--- 紙をカット ---")
-                    driver.cut_paper(mode='full')
-                else:
-                    print("No combined image to print (imglist was not empty but combine_images_vertically returned None).")
-            else:
-                print("No content to print (imglist was empty).")
+            # ジョブデータをタプルとしてキューに入れる
+            job_tuple = (header_data, body_text, body_image_bytes_list, footer_data)
+            self.print_queue.put(job_tuple)
+            print(f"Received data from {addr} and added to print queue. Current queue size: {self.print_queue.qsize()}")
 
         except Exception as e:
             print(f"Error handling client {addr}: {e}")
             import traceback
-            traceback.print_exc() # エラーのスタックトレースも表示
+            traceback.print_exc()
         finally:
             conn.close()
             print(f"Connection with {addr} closed.")

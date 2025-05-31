@@ -120,44 +120,63 @@ class ImageConverter:
             traceback.print_exc()
             return None
 
-    def combine_images_vertically(self, images: list[Image.Image], padding: int = 1) -> Image.Image | None:
+    def combine_images_vertically(self, images: list[Image.Image], 
+                                  padding: int = 1, 
+                                  target_width: int = None) -> Image.Image | None:
         """
         複数のPIL.Imageオブジェクトを垂直方向に結合して1枚の画像にする。
-        結合された画像の幅は、リスト内で最も幅の広い画像の幅に合わせられる。
-        結合された画像は、各画像を水平方向中央に配置する。
+        各画像は、指定されたターゲット幅に合わせて縮小（または拡大）される。
+        結合された画像は、各画像を水平方向左に配置する。
         :param images: 結合するPIL.Imageオブジェクトのリスト
         :param padding: 各画像間のパディング（ピクセル数）
+        :param target_width: 結合画像の最終的な幅。Noneの場合、ImageConverterのdefault_widthを使用。
+                             各画像はこの幅に合わせてリサイズされる。
         :return: 結合されたPIL.Imageオブジェクト、またはエラーの場合はNone
         """
         if not images:
             print("WARNING: 結合する画像が指定されていません。")
             return None
 
-        # RGBモードに変換しておく
-        processed_images = []
-        for img in images:
-            if img.mode != 'RGB':
-                processed_images.append(img.convert('RGB'))
-            else:
-                processed_images.append(img)
-        images = processed_images
+        # ターゲット幅の決定
+        if target_width is None:
+            combined_target_width = self.default_width
+        else:
+            combined_target_width = target_width
+        
+        print(f"DEBUG: Combining images. Target width: {combined_target_width}")
 
-        max_width = 0
+        # RGBモードに変換し、ターゲット幅に合わせてリサイズ
+        processed_images = []
         total_height = 0
 
         for i, img in enumerate(images):
-            max_width = max(max_width, img.width)
+            # RGBモードに変換
+            if img.mode != 'RGB':
+                img = img.convert('RGB')
+            
+            # ターゲット幅に合わせてリサイズ (アスペクト比を維持)
+            if img.width > combined_target_width: # 画像がターゲット幅より広い場合のみ縮小
+                new_height = int(img.height * combined_target_width / img.width)
+                img = img.resize((combined_target_width, new_height), Image.Resampling.LANCZOS)
+                print(f"DEBUG: Image {i} resized from {images[i].size} to {img.size}")
+            # もし画像がターゲット幅より狭い場合は、拡大しない
+            # 必要であれば、後のパディングで対応する
+            
+            processed_images.append(img)
             total_height += img.height
             if i < len(images) - 1: # 最後の画像以外にパディングを追加
                 total_height += padding
 
         # 結合された画像を作成 (白背景)
-        combined_img = Image.new('RGB', (max_width, total_height), color=(255, 255, 255))
+        combined_img = Image.new('RGB', (combined_target_width, total_height), color=(255, 255, 255))
 
         current_y_offset = 0
-        for img in images:
-            # 画像を中央に配置するためのX座標
-            x_offset = 0
+        for img in processed_images:
+            # 画像を左に配置するためのX座標
+            # もしリサイズ後の画像がtarget_widthより小さい場合（元々小さかった場合など）
+            # ここで中央寄せにするか左寄せにするかを決定できる
+            x_offset = 0 # 今回は左寄せのまま
+
             combined_img.paste(img, (x_offset, current_y_offset))
             current_y_offset += img.height + padding
 

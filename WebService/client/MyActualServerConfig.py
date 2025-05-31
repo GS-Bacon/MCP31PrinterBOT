@@ -4,7 +4,7 @@ from server.config import BaseServerConfig
 class MyActualServerConfig(BaseServerConfig):
     @property
     def SERVER_IP(self):
-        return "192.168.0.199"
+        return "100.127.173.68"
 
     @property
     def SERVER_PORT(self):

@@ -6,3 +6,4 @@ my_discord_secrets.py
 *.local_config
 *.log
 *.jpg
+MyActualServerConfig.py
