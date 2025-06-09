@@ -10,7 +10,7 @@ if project_root not in sys.path:
     sys.path.append(project_root)
 
 from common.network_utils import serialize_data 
-from client.config import ClientConfig # 必要であれば
+#from client.config import ClientConfig # 必要であれば
 
 try:
     from .MyActualServerConfig import MyActualServerConfig as ActualClientConfig

@@ -43,48 +43,65 @@ class ImageConverter:
             
         lines = text.splitlines()
         max_line_width = 0
-        total_height = 0
-        line_heights = []
-
-        # フォントの行の高さを事前に取得 (ascender + descender)
-        # これにより、textbboxだけでは捉えきれない文字の下部のはみ出しを考慮する
+        
+        # Pillowの最新バージョンでは textbbox が正確な高さを返す
+        # フォントの基準となる行の高さを取得
+        # 'A'などの文字のbboxを取得して基準とするのが確実
         try:
-            # font.getmetrics() は (ascender, descender) を返す
-            # descender は負の値になることがあるので絶対値を取るか、加算する
-            ascender, descender = self.font.getmetrics()
-            # 一般的な行の高さは ascender + abs(descender)
-            # ただし、textbboxの高さと組み合わせるため、ここでは参考値
+            # getbbox はPillow 9.1.0以降でtextbboxの代わり
+            # textbboxはPillow 8.0.0以降
+            # getbboxはテキストの実際の描画範囲を返すため、特に ascender/descender を持つフォントでは重要
+            # ダミー文字でベースライン高さを取得
+            _, _, _, _, ascender, descender = draw.font.getfontinfo() # Pillow 10.0+
             base_line_height = ascender + abs(descender)
-        except AttributeError:
-            # getmetricsが利用できない古いPillowバージョンやフォントの場合
-            base_line_height = self.font_size * 1.2 # fallback
+        except Exception:
+            # 古いPillowやフォントでgetfontinfoが使えない場合
+            try:
+                ascender, descender = self.font.getmetrics()
+                base_line_height = ascender + abs(descender)
+            except AttributeError:
+                base_line_height = self.font_size * 1.2 # fallback
 
-        line_spacing_extra = int(self.font_size * 0.2) # 行間にフォントサイズの20%を追加
+        # 行間を調整するための追加スペース
+        line_spacing_extra = int(self.font_size * 0.2) 
+        effective_min_line_height = base_line_height + line_spacing_extra # 各行の最低限確保したい高さ
 
-        for line in lines:
-            if line.strip() == "": # 空行の場合
-                # 空行もフォントの標準的な高さ＋行間を確保
-                current_line_height = base_line_height + line_spacing_extra
-                line_heights.append(current_line_height)
-                total_height += current_line_height
-                continue
+        calculated_line_dimensions = [] # 各行の(幅, 高さ)を保存するリスト
 
-            # textbboxでテキストの描画サイズを取得
-            line_bbox = draw.textbbox((0, 0), line, font=self.font)
-            line_width = line_bbox[2] - line_bbox[0]
-            
-            # 描画されたテキストの高さと、フォントのベースライン高さを比較し、大きい方を選ぶ
-            # さらに、下部にはみ出す文字のために少し余裕を持たせる
-            current_line_height = max(line_bbox[3] - line_bbox[1], base_line_height) + line_spacing_extra
+        for line_num, line in enumerate(lines):
+            line_width = 0
+            line_height = 0
+
+            # 空行または空白のみの行の処理
+            # 'textbbox'は空白文字や空文字列に対してゼロの高さや幅を返す場合があるため、特別に処理
+            if not line.strip(): # 空行または空白文字のみの行の場合
+                # 最小の行の高さを確保
+                line_width = 0 # 空行なので幅は0
+                line_height = effective_min_line_height
+                print(f"DEBUG: Line {line_num} is empty/whitespace, setting height to {line_height}")
+            else:
+                # textbboxでテキストの描画サイズを取得
+                # textbbox は (left, top, right, bottom) を返す
+                # Pillow 9.2.0 以降では textbbox は (x0, y0, x1, y1) を返す
+                # したがって、幅は x1-x0, 高さは y1-y0
+                bbox = draw.textbbox((0, 0), line, font=self.font)
+                line_width = bbox[2] - bbox[0]
+                calculated_text_height = bbox[3] - bbox[1]
+                
+                # テキストの実際の描画高さと、最低限確保したい行の高さを比較し、大きい方を選ぶ
+                line_height = max(calculated_text_height, effective_min_line_height)
+                print(f"DEBUG: Line {line_num} ('{line}'): calculated_text_height={calculated_text_height}, chosen_line_height={line_height}, width={line_width}")
             
             max_line_width = max(max_line_width, line_width)
-            total_height += current_line_height
-            line_heights.append(current_line_height)
+            calculated_line_dimensions.append((line_width, line_height))
         
+        # 全体の高さを計算
+        total_height = sum(dim[1] for dim in calculated_line_dimensions)
+
         # 画像の最終的な幅と高さ
         # 左右の余白を少し増やし、特に下部の余白を多めに取る
-        image_width = max(self.default_width, max_line_width + 20) # 左右に余裕を持たせる
-        image_height = total_height + 20 # 上下にも余裕を持たせる (特に下部)
+        image_width = max(self.default_width, max_line_width + 20) # 左右に余裕を持たせる (左10, 右10)
+        image_height = total_height + 20 # 上下にも余裕を持たせる (上10, 下10)
 
         # 画像を作成 (白色背景、黒色テキスト) - 'RGB'モードで作成し、カラー画像として返す
         img = Image.new('RGB', (image_width, image_height), color = (255, 255, 255)) # 白背景 (RGB)
@@ -92,8 +109,10 @@ class ImageConverter:
 
         y_offset = 10 # 上余白を少し増やす
         for i, line in enumerate(lines):
+            # 空行でもテキストを描画（何も表示されないがオフセットは進む）
+            # 空行の場合でも draw.text を呼ぶことで、y_offsetの計算が統一される
             draw.text((10, y_offset), line, font=self.font, fill=(0, 0, 0)) # 左余白を少し増やす
-            y_offset += line_heights[i]
+            y_offset += calculated_line_dimensions[i][1] # 計算された行の高さを加算
 
         if output_path:
             try:
@@ -103,16 +122,58 @@ class ImageConverter:
                 print(f"ERROR: 画像保存中にエラーが発生しました: {e}")
         return img
     
-    def image_from_bytes(self, image_bytes: bytes) -> Image.Image | None:
+    def image_from_bytes(self, image_bytes: bytes, auto_rotate_for_max_size: bool = False) -> Image.Image | None:
         """
         バイト列形式の画像データをPIL.Imageオブジェクトに変換する。
+        必要に応じて、画像を90度回転させて、より大きな表示領域に収まるようにする。
         :param image_bytes: 画像のバイト列データ (PNG, JPEGなどのファイルデータ)
+        :param auto_rotate_for_max_size: Trueの場合、画像の幅がデフォルト幅より小さいが、
+                                         高さを幅として回転するとデフォルト幅に近づく場合、画像を90度回転させる。
+                                         デフォルトはFalse（回転させない）。
         :return: 変換されたPIL.Imageオブジェクト、またはエラーの場合はNone
         """
         try:
             img_io = io.BytesIO(image_bytes)
             img = Image.open(img_io)
-            print(f"DEBUG: Successfully converted bytes to PIL Image. Mode: {img.mode}, Size: {img.size}")
+            print(f"DEBUG: Successfully converted bytes to PIL Image. Mode: {img.mode}, Original Size: {img.size}")
+
+            if auto_rotate_for_max_size:
+                # 画像の幅が default_width より小さく、
+                # かつ高さを幅とすることで default_width に近づく場合に回転を検討
+                # (例: 縦長の画像を横長にすることで、プリンターの紙幅に合わせる)
+                
+                # 現在の幅と高さ
+                current_width, current_height = img.size
+                
+                # 回転した場合の幅と高さ
+                rotated_width, rotated_height = current_height, current_width
+
+                # ロジック:
+                # 1. 現在の幅がdefault_widthよりも小さい
+                # 2. かつ、回転後の幅(元の高さ)がdefault_widthに近い、またはより大きい
+                # 3. かつ、現在の幅と高さの比率が大きく異なる（縦長である）
+                # ここでは、単純に現在の幅より回転後の幅がdefault_widthに近づくか、default_widthを超える場合に回転を検討
+                # ただし、default_widthを超える場合は縮小が必要になることに注意
+                
+                # 簡単な判断基準: 縦長の画像を横幅に合わせる方が良い場合
+                # 現在の画像が、default_widthに対して「幅が狭く、高さがある」場合
+                if current_width < self.default_width and current_height > self.default_width:
+                     # 90度回転することで、幅が広がってdefault_widthに近づくか確認
+                    if rotated_width <= self.default_width: # 回転後の幅がデフォルト幅以下に収まるなら回転
+                        img = img.transpose(Image.ROTATE_90)
+                        print(f"DEBUG: Image rotated 90 degrees for max size. New Size: {img.size}")
+                    elif rotated_width > self.default_width and current_width < current_height:
+                        # 回転後の幅がdefault_widthを超えるが、元の画像が非常に縦長で
+                        # 回転した方がdefault_widthに近づく（かつ後で縮小できる）場合
+                        # ここはより複雑な判断が必要になるため、シンプルな条件に留める
+                        # 例: 縦横比が一定以上異なる場合
+                        if current_height / current_width > 1.5: # 縦横比が1.5倍以上の場合
+                            img = img.transpose(Image.ROTATE_90)
+                            print(f"DEBUG: Image rotated 90 degrees for max size (aspect ratio). New Size: {img.size}")
+                
+                # もし画像が横長だが、default_widthより短く、回転するともっと小さくなる場合は回転しない
+                # 例: (400, 200) -> default_width=576. 回転すると (200, 400) になって、幅が縮むので回転しない
+
             return img
         except Exception as e:
             print(f"ERROR: バイト列からの画像変換中にエラーが発生しました: {e}")
@@ -172,10 +233,7 @@ class ImageConverter:
 
         current_y_offset = 0
         for img in processed_images:
-            # 画像を左に配置するためのX座標
-            # もしリサイズ後の画像がtarget_widthより小さい場合（元々小さかった場合など）
-            # ここで中央寄せにするか左寄せにするかを決定できる
-            x_offset = 0 # 今回は左寄せのまま
+            x_offset = 0 # 左寄せのまま
 
             combined_img.paste(img, (x_offset, current_y_offset))
             current_y_offset += img.height + padding

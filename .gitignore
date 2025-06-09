@@ -7,3 +7,7 @@ my_discord_secrets.py
 *.log
 *.jpg
 MyActualServerConfig.py
+service_account_credentials.json
+*.txt
+*__pycache__*
+*.pyc
